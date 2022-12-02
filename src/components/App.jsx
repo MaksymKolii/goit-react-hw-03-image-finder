@@ -16,7 +16,7 @@ export class App extends Component {
     showModal: false,
     isShown: false,
     page: 1,
-    query: '911',
+    query: '',
     isLoading: false,
     eror: null,
   };
@@ -43,6 +43,11 @@ export class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
+  handelSubmit = data => {
+    this.setState({ guery: data });
+    this.getImages();
+  };
+
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
@@ -57,14 +62,13 @@ export class App extends Component {
   };
 
   render() {
-    // this.getImages();
     const { images, currentImage, showModal } = this.state;
     console.log(currentImage);
     console.log(images);
 
     return (
       <div>
-        <Searchbar onSubmit="888"></Searchbar>
+        <Searchbar onSubmit={this.handelSubmit}></Searchbar>
         <ImagesGallery
           options={images}
           // openModal={this.openModal}

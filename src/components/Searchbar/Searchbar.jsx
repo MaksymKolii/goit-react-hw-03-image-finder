@@ -14,6 +14,7 @@ export class Searchbar extends Component {
       [name]: value,
     });
   };
+
   reset = () => {
     this.setState({ name: '' });
   };
@@ -28,7 +29,7 @@ export class Searchbar extends Component {
   render() {
     return (
       <header className="searchbar">
-        <form className="form">
+        <form className="form" onSubmit={this.handleSubmit}>
           <button type="submit" className="button">
             <BsSearch style={{ marginRight: 8 }} />
             <span className="button-label">Search</span>
