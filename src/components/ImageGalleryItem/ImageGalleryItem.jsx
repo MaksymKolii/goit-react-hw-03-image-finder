@@ -1,3 +1,4 @@
+// import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
 export const ImageGalleryItem = ({ smallImg }) => {
   return (

@@ -4,10 +4,14 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
 export class ImagesGallery extends Component {
   render() {
-    return this.props.options.map(({ id, smallImg }) => {
+    return this.props.options.map(({ id, smallImg, bigImg }) => {
       return (
         <ul key={id} className="gallery">
-          <ImageGalleryItem smallImg={smallImg}></ImageGalleryItem>
+          <ImageGalleryItem
+            smallImg={smallImg}
+            // bigImg={bigImg}
+            // openModal={this.props.openModal}
+          />
         </ul>
       );
     });
