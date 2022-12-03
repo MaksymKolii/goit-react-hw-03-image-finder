@@ -6,9 +6,8 @@ import { fetchImages } from 'services/moviesApi';
 import { Searchbar } from './Searchbar/Searchbar';
 import { imagesMapper } from './utils/mapper';
 import { ImagesGallery } from './ImagesGallery/ImagesGallery';
-import { Loader } from './Loader/Loader';
-// import images from '../data/images.json';
-import Modal from './Modal/Modal';
+// import { Loader } from './Loader/Loader';
+// import Modal from './Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -26,7 +25,7 @@ export class App extends Component {
     const { page, totalPages, images } = this.state;
 
     if (prev.page !== page && page !== 1) {
-      this.getPictures();
+      this.getImages();
     }
 
     if (page >= totalPages && images !== prev.images) {
@@ -34,41 +33,28 @@ export class App extends Component {
     }
   }
 
-  getPictures = async () => {
-    const { query, page } = this.state;
-
-    this.setState({ isLoading: true });
-
-    const arrayOfPictures = await fetchImages(query, page);
-    const arr = imagesMapper(arrayOfPictures);
-    console.log(arr);
-    this.setState(prevState => ({ images: [...prevState.images, ...arr] }));
-    this.setState({ isLoading: false });
-  };
   getImages = async () => {
-    const { page, query, images } = this.state;
+    const { page, query } = this.state;
     this.setState({ isLoading: true });
     const array = await fetchImages(query, page);
+
     console.log(array);
+
     this.setState(prev => ({
       images: [...prev.images, ...imagesMapper(array)],
     }));
     this.setState({ isLoading: false });
   };
 
-  showImages = data => {
-    this.setState(({ isShown }) => ({
-      isShown: !isShown,
-      query: data,
-      inages: [],
-      page: 1,
-    }));
-  };
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
+  // showImages = data => {
+  //   this.setState(({ isShown }) => ({
+  //     isShown: !isShown,
+  //     query: data,
+  //     inages: [],
+  //     page: 1,
+  //   }));
+  // };
+
   openModal = data => {
     this.setState({ currentImage: data });
   };
@@ -92,13 +78,13 @@ export class App extends Component {
           Open Modal
         </button> */}
 
-        {showModal && (
+        {/* {showModal && (
           <Modal onClose={this.toggleModal}>
             <button type="button" onClick={this.toggleModal}>
               Close modal
             </button>
           </Modal>
-        )}
+        )} */}
 
         <GlobalStyle />
       </div>

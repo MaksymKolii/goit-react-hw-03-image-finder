@@ -15,7 +15,6 @@ export class Searchbar extends Component {
     this.setState({
       query: value.toLowerCase(),
     });
-    console.log(value);
   };
 
   reset = () => {

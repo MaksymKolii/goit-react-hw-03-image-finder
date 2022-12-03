@@ -9,6 +9,7 @@ const searchParams = new URLSearchParams({
 
 export async function fetchImages(page, keyWord) {
   const search = `${URL}?q=${keyWord}&${searchParams}&page=${page}&per_page=12`;
+
   try {
     const response = await axios.get(search);
 
