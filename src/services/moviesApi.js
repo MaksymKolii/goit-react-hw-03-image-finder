@@ -7,7 +7,13 @@ const searchParams = new URLSearchParams({
   safesearch: true,
 });
 
-export function fetchImages(page, keyWord) {
+export async function fetchImages(page, keyWord) {
   const search = `${URL}?q=${keyWord}&${searchParams}&page=${page}&per_page=12`;
-  return axios.get(search);
+  try {
+    const response = await axios.get(search);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 }

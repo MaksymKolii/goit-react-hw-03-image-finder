@@ -14,37 +14,51 @@ export class App extends Component {
   state = {
     images: [],
     currentImage: null,
-    isSearch: false,
+    isShown: false,
     page: 1,
+    totalPages: null,
     query: '',
     isLoading: false,
     eror: null,
   };
 
   componentDidUpdate(_, prev) {
-    const { query, page } = this.state;
-    if (query !== prev.query || page !== prev.page) {
-      this.getImages();
+    const { page, totalPages, images } = this.state;
+
+    if (prev.page !== page && page !== 1) {
+      this.getPictures();
+    }
+
+    if (page >= totalPages && images !== prev.images) {
+      alert("We're sorry, but you've reached the end of search results.");
     }
   }
-  getImages = () => {
-    const { page, query } = this.state;
+
+  getPictures = async () => {
+    const { query, page } = this.state;
+
     this.setState({ isLoading: true });
-    fetchImages(page, query)
-      .then(({ data: { hits } }) => {
-        this.setState(prev => ({
-          images: [...prev.images, ...imagesMapper(hits)],
-        }));
-      })
-      .catch(error => {
-        this.setState({ error: error.message });
-      })
-      .finally(() => this.setState({ isLoading: false }));
+
+    const arrayOfPictures = await fetchImages(query, page);
+    const arr = imagesMapper(arrayOfPictures);
+    console.log(arr);
+    this.setState(prevState => ({ images: [...prevState.images, ...arr] }));
+    this.setState({ isLoading: false });
+  };
+  getImages = async () => {
+    const { page, query, images } = this.state;
+    this.setState({ isLoading: true });
+    const array = await fetchImages(query, page);
+    console.log(array);
+    this.setState(prev => ({
+      images: [...prev.images, ...imagesMapper(array)],
+    }));
+    this.setState({ isLoading: false });
   };
 
   showImages = data => {
-    this.setState(({ isSearch }) => ({
-      isSearch: !isSearch,
+    this.setState(({ isShown }) => ({
+      isShown: !isShown,
       query: data,
       inages: [],
       page: 1,
