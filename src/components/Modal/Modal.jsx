@@ -21,8 +21,8 @@ class Modal extends Component {
   render() {
     // const { src } = this.props;
     return createPortal(
-      <div className={s.overlay}>
-        <div className={s.modal}>
+      <div className={s.Overlay}>
+        <div className={s.Modal}>
           {this.props.children}
           {/* <img src={src} alt="" /> */}
         </div>

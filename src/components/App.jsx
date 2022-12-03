@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { GlobalStyle } from './utils/GlobalStyles';
+import s from './appCSS/App.module.css';
 
 import { fetchImages } from 'services/moviesApi';
 import { Searchbar } from './Searchbar/Searchbar';
@@ -13,21 +14,19 @@ export class App extends Component {
   state = {
     images: [],
     currentImage: null,
-    showModal: false,
-    isShown: false,
+    isSearch: false,
     page: 1,
     query: '',
     isLoading: false,
     eror: null,
   };
 
-  // componentDidUpdate(_, prev) {
-  //   const { isShown } = this.state;
-  //   if (isShown !== prev.isShown) {
-  //     this.getImages();
-  //   }
-  // }
-
+  componentDidUpdate(_, prev) {
+    const { query, page } = this.state;
+    if (query !== prev.query || page !== prev.page) {
+      this.getImages();
+    }
+  }
   getImages = () => {
     const { page, query } = this.state;
     this.setState({ isLoading: true });
@@ -43,11 +42,14 @@ export class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  handelSubmit = data => {
-    this.setState({ guery: data });
-    this.getImages();
+  showImages = data => {
+    this.setState(({ isSearch }) => ({
+      isSearch: !isSearch,
+      query: data,
+      inages: [],
+      page: 1,
+    }));
   };
-
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
@@ -60,22 +62,21 @@ export class App extends Component {
   closeModal = () => {
     this.setState({ currentImage: null });
   };
-
+  handleFormSubmit = query => {
+    this.setState({ query });
+  };
   render() {
     const { images, currentImage, showModal } = this.state;
-    console.log(currentImage);
-    console.log(images);
+    // console.log(currentImage);
+    // console.log(images);
 
     return (
-      <div>
-        <Searchbar onSubmit={this.handelSubmit}></Searchbar>
-        <ImagesGallery
-          options={images}
-          // openModal={this.openModal}
-        ></ImagesGallery>
-        <button type="button" onClick={this.toggleModal}>
+      <div className={s.App}>
+        <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
+        <ImagesGallery options={images}></ImagesGallery>
+        {/* <button type="button" onClick={this.toggleModal}>
           Open Modal
-        </button>
+        </button> */}
 
         {showModal && (
           <Modal onClose={this.toggleModal}>
