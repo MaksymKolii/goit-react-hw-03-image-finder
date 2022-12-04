@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { GlobalStyle } from './utils/GlobalStyles';
-import s from './appCSS/App.module.css';
+// import { GlobalStyle } from './utils/GlobalStyles';
+// import s from './appCSS/App.module.css';
 
-import { fetchImages } from 'services/moviesApi';
+import { fetchImages } from 'services/apiFetcher';
 import { Searchbar } from './Searchbar/Searchbar';
-import { imagesMapper } from './utils/mapper';
-import { ImagesGallery } from './ImagesGallery/ImagesGallery';
+import { imagesMapper } from '../services/imageMapper';
+import { ImagesGallery } from './ImageGallery/ImageGallery';
 // import { Loader } from './Loader/Loader';
 // import Modal from './Modal/Modal';
 
@@ -15,35 +15,43 @@ export class App extends Component {
     currentImage: null,
     isShown: false,
     page: 1,
-    totalPages: null,
-    query: '',
+    query: null,
     isLoading: false,
     eror: null,
   };
 
   componentDidUpdate(_, prev) {
-    const { page, totalPages, images } = this.state;
+    const { page, totalPages, images, query } = this.state;
 
-    if (prev.page !== page && page !== 1) {
+    if (prev.page !== page || prev.query !== query) {
       this.getImages();
     }
 
-    if (page >= totalPages && images !== prev.images) {
-      alert("We're sorry, but you've reached the end of search results.");
-    }
+    // if (page === prev.page && images === prev.images) {
+    //   alert("We're sorry, but you've reached the end of search results.");
+    // }
   }
 
   getImages = async () => {
     const { page, query } = this.state;
     this.setState({ isLoading: true });
-    const array = await fetchImages(query, page);
+    try {
+      const array = await fetchImages(query, page);
+      if (!array.length) {
+        alert(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      }
 
-    console.log(array);
+      console.log(array);
 
-    this.setState(prev => ({
-      images: [...prev.images, ...imagesMapper(array)],
-    }));
-    this.setState({ isLoading: false });
+      this.setState(prev => ({
+        images: [...prev.images, ...imagesMapper(array)],
+      }));
+      this.setState({ isLoading: false });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // showImages = data => {
@@ -55,24 +63,42 @@ export class App extends Component {
   //   }));
   // };
 
-  openModal = data => {
-    this.setState({ currentImage: data });
+  // openModal = data => {
+  //   this.setState({ currentImage: data });
+  // };
+
+  // closeModal = () => {
+  //   this.setState({ currentImage: null });
+  // };
+  // handleFormSubmit = query => {
+  //   this.setState({ query });
+  // };
+
+  onFormSubmit = query => {
+    // if (query.trim().length === 0) {
+    //   alert('Please, enter Something !!!');
+    //   return;
+    // }
+
+    this.setState({
+      query,
+      page: 1,
+      images: [],
+    });
   };
 
-  closeModal = () => {
-    this.setState({ currentImage: null });
-  };
-  handleFormSubmit = query => {
-    this.setState({ query });
-  };
   render() {
-    const { images, currentImage, showModal } = this.state;
+    const { images, query } = this.state;
     // console.log(currentImage);
     // console.log(images);
 
     return (
-      <div className={s.App}>
-        <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
+      <div className="77">
+        <Searchbar
+          onSubmit={this.onFormSubmit}
+          // query={query}
+          // handleInputChange={this.handleInputChange}
+        ></Searchbar>
         <ImagesGallery options={images}></ImagesGallery>
         {/* <button type="button" onClick={this.toggleModal}>
           Open Modal
@@ -86,7 +112,7 @@ export class App extends Component {
           </Modal>
         )} */}
 
-        <GlobalStyle />
+        {/* <GlobalStyle /> */}
       </div>
     );
   }

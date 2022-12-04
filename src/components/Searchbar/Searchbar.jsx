@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BsSearch } from 'react-icons/bs';
 
-import s from './Searchbar.module.css';
+// import s from './Searchbar.module.css';
 
 // import { Formik } from 'formik';
 // import PropTypes from 'prop-types';
@@ -24,9 +23,8 @@ export class Searchbar extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     if (this.state.query.trim() === '') {
-      return alert('Not possible to find');
+      return alert('Put something in input');
     }
-
     this.props.onSubmit(this.state.query);
     this.reset();
   };
@@ -39,23 +37,24 @@ export class Searchbar extends Component {
   // };
 
   render() {
+    const { query } = this.state;
     return (
-      <header className={s.Searchbar}>
-        <form className={s.SearchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={s.SearchFormButton}>
-            <BsSearch style={{ marginRight: 8 }} />
-            <span className={s.label}>Search</span>
+      <header className="888">
+        <form className="888" onSubmit={this.handleSubmit}>
+          <button type="submit" className="55">
+            {/* <BsSearch style={{ marginRight: 8 }} /> */}
+            <span className="uuu">Search</span>
           </button>
 
           <input
-            className={s.input}
+            className="888"
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
             onChange={this.handleInputChange}
             value={this.state.query}
-            // name="query"
+            name="query"
           />
         </form>
       </header>

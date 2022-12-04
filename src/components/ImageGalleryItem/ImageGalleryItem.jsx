@@ -1,10 +1,10 @@
 // import Modal from '../Modal/Modal';
-import s from './ImageGalleryItem.module.css';
+// import s from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 export const ImageGalleryItem = ({ smallImg }) => {
   return (
-    <li className={s.Item}>
-      <img className={s.Image} src={smallImg} alt=" " />
+    <li className="999">
+      <img className="00" src={smallImg} alt=" " />
     </li>
   );
 };
