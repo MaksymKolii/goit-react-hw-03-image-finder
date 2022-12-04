@@ -8,7 +8,7 @@ export class ImagesGallery extends Component {
     return this.props.options.map(({ id, smallImg }) => {
       return (
         <Gallery key={id}>
-          <ImageGalleryItem smallImg={smallImg} />
+          <ImageGalleryItem smallImg={smallImg} onClick={this.props.onClick} />
         </Gallery>
       );
     });

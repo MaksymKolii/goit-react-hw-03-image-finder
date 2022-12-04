@@ -37,7 +37,7 @@ export class Searchbar extends Component {
   // };
 
   render() {
-    const { query } = this.state;
+    // const { query } = this.state;
     return (
       <header className="888">
         <form className="888" onSubmit={this.handleSubmit}>
