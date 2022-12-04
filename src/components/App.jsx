@@ -29,7 +29,6 @@ export class App extends Component {
       alert("We're sorry, but you've reached the end of search results.");
     }
     this.scrollHandler();
-    // this.scrollToFirstPicture();
   }
 
   getCkickedImgUrl = data => {
@@ -84,17 +83,6 @@ export class App extends Component {
       behavior: 'smooth',
     });
   };
-
-  // scrollToFirstPicture() {
-  //   const { height: cardHeight } = document
-  //     .getElementById(this.state.idToScrollTo)
-  //     .getBoundingClientRect();
-
-  //   window.scrollBy({
-  //     top: cardHeight * 1.8,
-  //     behavior: 'smooth',
-  //   });
-  // }
 
   render() {
     const { images, isLoading, page, totPages, clickedImageUrl } = this.state;
