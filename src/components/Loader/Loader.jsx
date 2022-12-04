@@ -1,9 +1,19 @@
-// import  from './Loader.styled';
+import { Triangle } from 'react-loader-spinner';
+
+import { LoaderClass } from './Loader.styled';
 
 export const Loader = () => {
   return (
-    <div>
-      <p>LOADING ............</p>
-    </div>
+    <LoaderClass>
+      <Triangle
+        height="80"
+        width="80"
+        color="#4fa94d"
+        ariaLabel="triangle-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        visible={true}
+      />
+    </LoaderClass>
   );
 };

@@ -1,16 +1,8 @@
 import { Overlay, ModalClass } from './Modal.styled';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-// import { createPortal } from "react-dom";
-
-// const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
-  // static propTypes = {
-  //     closeModal: PropTypes.func.isRequired,
-  //     url: PropTypes.string.isRequired,
-  // }
-
   handleKeyDown = e => {
     if (e.code === 'Escape') {
       this.props.closeModal();
@@ -32,7 +24,6 @@ export class Modal extends Component {
   }
 
   render() {
-    // return createPortal(
     return (
       <Overlay onClick={this.handleBackdropClick}>
         <ModalClass>
@@ -40,8 +31,6 @@ export class Modal extends Component {
         </ModalClass>
       </Overlay>
     );
-    //   modalRoot;
-    // );
   }
 }
 Modal.propTypes = {

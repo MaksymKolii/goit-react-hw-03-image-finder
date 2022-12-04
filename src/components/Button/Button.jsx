@@ -1,9 +1,9 @@
 import { LButton } from './Button.styled';
 import PropTypes from 'prop-types';
 
-export const Button = ({ onClick }) => {
+export const Button = ({ onClick, loading }) => {
   return (
-    <LButton onClick={onClick} type="button">
+    <LButton onClick={onClick} type="button" disabled={loading}>
       Load more
     </LButton>
   );
@@ -11,4 +11,5 @@ export const Button = ({ onClick }) => {
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };

@@ -13,12 +13,10 @@ export class App extends Component {
   state = {
     images: [],
     clickedImageUrl: null,
-    // isShown: false,
     page: 1,
     query: null,
     isLoading: false,
     totPages: null,
-    // eror: null,
   };
 
   componentDidUpdate(_, prev) {
@@ -30,7 +28,10 @@ export class App extends Component {
     if (page >= totPages && images !== prev.images && page !== 1) {
       alert("We're sorry, but you've reached the end of search results.");
     }
+    this.scrollHandler();
+    // this.scrollToFirstPicture();
   }
+
   getCkickedImgUrl = data => {
     this.setState({ clickedImageUrl: data });
   };
@@ -58,35 +59,16 @@ export class App extends Component {
       console.log(error);
     }
   };
+
   nextPage = () => {
     this.setState(({ page }) => ({
       page: page + 1,
     }));
-    if (this.state.page === this.state.totPages) {
-      // if (page === totalPages && images !== prev.images) {
-      alert("We're sorry, but you've reached the end of search results.");
-    }
   };
-
-  // showImages = data => {
-  //   this.setState(({ isShown }) => ({
-  //     isShown: !isShown,
-  //     query: data,
-  //     inages: [],
-  //     page: 1,
-  //   }));
-  // };
-
-  // openModal = data => {
-  //   this.setState({ currentImage: data });
-  // };
 
   closeModal = () => {
     this.setState({ clickedImageUrl: null });
   };
-  // handleFormSubmit = query => {
-  //   this.setState({ query });
-  // };
 
   onFormSubmit = query => {
     this.setState({
@@ -96,14 +78,30 @@ export class App extends Component {
     });
   };
 
+  scrollHandler = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
+  // scrollToFirstPicture() {
+  //   const { height: cardHeight } = document
+  //     .getElementById(this.state.idToScrollTo)
+  //     .getBoundingClientRect();
+
+  //   window.scrollBy({
+  //     top: cardHeight * 1.8,
+  //     behavior: 'smooth',
+  //   });
+  // }
+
   render() {
     const { images, isLoading, page, totPages, clickedImageUrl } = this.state;
-    // console.log(currentImage);
-    // console.log(images);
 
     return (
       <APP>
-        <Searchbar onSubmit={this.onFormSubmit}></Searchbar>
+        <Searchbar onSubmit={this.onFormSubmit} loading={isLoading}></Searchbar>
         {images && (
           <ImagesGallery options={images} onClick={this.getCkickedImgUrl} />
         )}
@@ -111,23 +109,14 @@ export class App extends Component {
         {isLoading ? (
           <Loader />
         ) : (
-          images && page < totPages && <Button onClick={this.nextPage} />
+          images &&
+          page < totPages && (
+            <Button onClick={this.nextPage} loading={isLoading} />
+          )
         )}
         {clickedImageUrl && (
           <Modal closeModal={this.closeModal} url={clickedImageUrl} />
         )}
-        {/* <ImagesGallery options={images}></ImagesGallery> */}
-        {/* <button type="button" onClick={this.toggleModal}>
-          Open Modal
-        </button> */}
-
-        {/* {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <button type="button" onClick={this.toggleModal}>
-              Close modal
-            </button>
-          </Modal>
-        )} */}
 
         <GlobalStyle />
       </APP>

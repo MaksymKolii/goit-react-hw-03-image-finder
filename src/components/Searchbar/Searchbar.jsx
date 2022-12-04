@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-
-// import s from './Searchbar.module.css';
-
-// import { Formik } from 'formik';
-// import PropTypes from 'prop-types';
+import { SearchbarHeader, Form, Button, Span, Input } from './Searchbar.styled';
+import PropTypes from 'prop-types';
 
 export class Searchbar extends Component {
   state = {
@@ -29,25 +26,16 @@ export class Searchbar extends Component {
     this.reset();
   };
 
-  // handleSubmit = evt => {
-  //   evt.preventDefault();
-  //   this.props.onSubmit({ ...this.state });
-  //   console.log(this.state);
-  //   this.reset();
-  // };
-
   render() {
-    // const { query } = this.state;
+    const { loading } = this.props;
     return (
-      <header className="888">
-        <form className="888" onSubmit={this.handleSubmit}>
-          <button type="submit" className="55">
-            {/* <BsSearch style={{ marginRight: 8 }} /> */}
-            <span className="uuu">Search</span>
-          </button>
+      <SearchbarHeader>
+        <Form onSubmit={this.handleSubmit}>
+          <Button type="submit" disabled={loading}>
+            <Span>Search</Span>
+          </Button>
 
-          <input
-            className="888"
+          <Input
             type="text"
             autoComplete="off"
             autoFocus
@@ -56,8 +44,12 @@ export class Searchbar extends Component {
             value={this.state.query}
             name="query"
           />
-        </form>
-      </header>
+        </Form>
+      </SearchbarHeader>
     );
   }
 }
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
