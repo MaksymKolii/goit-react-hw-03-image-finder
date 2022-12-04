@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-// import s from './ImageGallery.module.css';
+import { Gallery } from './ImageGallery.styled';
 
 export class ImagesGallery extends Component {
   render() {
     return this.props.options.map(({ id, smallImg }) => {
       return (
-        <ul key={id} className="00">
+        <Gallery key={id}>
           <ImageGalleryItem smallImg={smallImg} />
-        </ul>
+        </Gallery>
       );
     });
   }

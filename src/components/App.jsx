@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { GlobalStyle } from './utils/GlobalStyles';
+import { GlobalStyle } from './utils/GlobalStyles';
 // import s from './appCSS/App.module.css';
 
 import { fetchImages } from 'services/apiFetcher';
@@ -112,7 +112,7 @@ export class App extends Component {
           </Modal>
         )} */}
 
-        {/* <GlobalStyle /> */}
+        <GlobalStyle />
       </div>
     );
   }
