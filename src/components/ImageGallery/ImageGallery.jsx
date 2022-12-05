@@ -5,17 +5,20 @@ import { Gallery } from './ImageGallery.styled';
 
 export class ImagesGallery extends Component {
   render() {
-    return this.props.options.map(({ id, smallImg, bigImg }) => {
-      return (
-        <Gallery key={id}>
-          <ImageGalleryItem
-            smallImg={smallImg}
-            bigImg={bigImg}
-            onClick={this.props.onClick}
-          />
-        </Gallery>
-      );
-    });
+    return (
+      <Gallery>
+        {this.props.options.map(({ id, smallImg, bigImg }) => {
+          return (
+            <ImageGalleryItem
+              key={id}
+              smallImg={smallImg}
+              bigImg={bigImg}
+              onClick={this.props.onClick}
+            />
+          );
+        })}
+      </Gallery>
+    );
   }
 }
 // ImagesGallery.propTypes = {
