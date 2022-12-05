@@ -28,6 +28,7 @@ export class App extends Component {
     // if (page >= totPages && images !== prev.images && page !== 1) {
     //   alert("We're sorry, but you've reached the end of search results.");
     // }
+
     this.scrollHandler();
   }
 
@@ -70,11 +71,9 @@ export class App extends Component {
   };
 
   onFormSubmit = query => {
-    this.setState({
-      query,
-      page: 1,
-      images: [],
-    });
+    if (query !== this.state.query) {
+      this.setState({ page: 1, images: [], query });
+    }
   };
 
   scrollHandler = () => {
