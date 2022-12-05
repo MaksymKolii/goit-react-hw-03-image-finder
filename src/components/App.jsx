@@ -46,7 +46,7 @@ export class App extends Component {
           'Sorry, there are no images matching your search query. Please try again.'
         );
       }
-      this.setState({ totPages: Math.floor(array.totalHits / 12) });
+      this.setState({ totPages: Math.ceil(array.totalHits / 12) });
 
       console.log(array);
       console.log(array.totalHits);
