@@ -25,9 +25,9 @@ export class App extends Component {
     if (prev.page !== page || prev.query !== query) {
       this.getImages();
     }
-    if (page >= totPages && images !== prev.images && page !== 1) {
-      alert("We're sorry, but you've reached the end of search results.");
-    }
+    // if (page >= totPages && images !== prev.images && page !== 1) {
+    //   alert("We're sorry, but you've reached the end of search results.");
+    // }
     this.scrollHandler();
   }
 
