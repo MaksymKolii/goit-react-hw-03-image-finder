@@ -20,7 +20,7 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prev) {
-    const { images, page, totPages, query } = this.state;
+    const { page, query } = this.state;
 
     if (prev.page !== page || prev.query !== query) {
       this.getImages();
