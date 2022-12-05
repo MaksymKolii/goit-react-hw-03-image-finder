@@ -22,6 +22,9 @@ export class App extends Component {
   componentDidUpdate(_, prev) {
     const { page, query } = this.state;
 
+    // if (_.onSubmit !== this.props.onSubmit) {
+    //   this.getImages();
+    // }
     if (prev.page !== page || prev.query !== query) {
       this.getImages();
     }
