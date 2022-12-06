@@ -2,6 +2,10 @@ import { Overlay, ModalClass } from './Modal.styled';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 
+import { createPortal } from 'react-dom';
+
+const modalRoot = document.querySelector('#modal-root');
+
 export class Modal extends Component {
   handleKeyDown = e => {
     if (e.code === 'Escape') {
@@ -24,12 +28,13 @@ export class Modal extends Component {
   }
 
   render() {
-    return (
+    return createPortal(
       <Overlay onClick={this.handleBackdropClick}>
         <ModalClass>
           <img src={this.props.url} alt="" />
         </ModalClass>
-      </Overlay>
+      </Overlay>,
+      modalRoot
     );
   }
 }

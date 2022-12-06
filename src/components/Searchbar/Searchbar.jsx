@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+
 import { SearchbarHeader, Form, Button, Span, Input } from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
@@ -20,7 +22,7 @@ export class Searchbar extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     if (this.state.query.trim() === '') {
-      return alert('Put something in input');
+      return toast('Put something in input');
     }
     this.props.onSubmit(this.state.query);
     this.reset();
