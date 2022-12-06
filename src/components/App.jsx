@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { GlobalStyle } from './utils/GlobalStyles';
 import { APP } from './App.styled';
@@ -28,7 +29,8 @@ export class App extends Component {
       this.getImages();
     }
     if (page >= totPages && images !== prev.images && page !== 1) {
-      toast("We're sorry, but you've reached the end of search results.");
+      // toast.error("We're sorry, but you've reached the end of search results.");
+      this.lastPageNotify();
     }
 
     this.scrollHandler();
@@ -45,7 +47,7 @@ export class App extends Component {
       const array = await fetchImages(query, page);
 
       if (!array.hits.length) {
-        toast(
+        toast.warning(
           'Sorry, there are no images matching your search query. Please try again.'
         );
       }
@@ -85,6 +87,19 @@ export class App extends Component {
     });
   };
 
+  lastPageNotify() {
+    toast.error("We're sorry, but you've reached the end of search results.", {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  }
+
   render() {
     const { images, isLoading, page, totPages, clickedImageUrl } = this.state;
 
@@ -108,7 +123,7 @@ export class App extends Component {
         )}
 
         <GlobalStyle />
-        <ToastContainer autoClose={3000} progress={true} />
+        <ToastContainer />
       </APP>
     );
   }

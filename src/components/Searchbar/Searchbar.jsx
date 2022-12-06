@@ -22,7 +22,7 @@ export class Searchbar extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     if (this.state.query.trim() === '') {
-      return toast('Put something in input');
+      return toast.info('Put something in input');
     }
     this.props.onSubmit(this.state.query);
     this.reset();
