@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { GlobalStyle } from './utils/GlobalStyles';
 import { APP } from './App.styled';
-import { fetchImages } from 'services/apiFetcher';
+import api from 'services/apiFetcher';
 import { Searchbar } from './Searchbar/Searchbar';
 import { imagesMapper } from '../services/imageMapper';
 import { ImagesGallery } from './ImageGallery/ImageGallery';
@@ -44,7 +44,7 @@ export class App extends Component {
     const { page, query } = this.state;
     this.setState({ isLoading: true });
     try {
-      const array = await fetchImages(query, page);
+      const array = await api.fetchImages(query, page);
 
       if (!array.hits.length) {
         toast.warning(
@@ -58,9 +58,11 @@ export class App extends Component {
       this.setState(prev => ({
         images: [...prev.images, ...imagesMapper(array.hits)],
       }));
-      this.setState({ isLoading: false });
+      // this.setState({ isLoading: false });
     } catch (error) {
       console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 

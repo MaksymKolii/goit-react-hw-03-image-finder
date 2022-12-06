@@ -8,10 +8,29 @@ const searchParams = new URLSearchParams({
   safesearch: true,
 });
 
-export async function fetchImages(keyWord, page) {
+//* Можно так ===========================================================================
+async function fetchImages(keyWord, page) {
   const search = `${URL}?q=${keyWord}&${searchParams}&page=${page}&per_page=12`;
 
   const response = await axios.get(search);
 
   return response.data;
 }
+
+const ppp = {
+  fetchImages,
+};
+export default ppp;
+
+//* Можно так ===========================================================================
+// export const fetchImages = async (keyWord, page) => {
+//   const search = `${URL}?q=${keyWord}&${searchParams}&page=${page}&per_page=12`;
+
+//   const response = await axios.get(search);
+
+//   return response.data;
+// };
+
+// export default {
+//   fetchImages,
+// };
